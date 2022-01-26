@@ -7,7 +7,7 @@ const Project: React.FC<Project> = ({ name, cid, description }): JSX.Element => 
 
     // string[]
     const colors: Array<any> = ['primary', 'secondary', 'success', 'warning', 'error'];
-    const emojis: Array<string> = ["🐠", "🐟", "🐳", "🦄", "🧑🏻‍🚀", "👩🏻‍🚀", "👊", "👾", "👽", "🎃", "🥳", "🤡", "🧠", "🍉", "🍎", "🍐", "🍊", "🍋", "🍌", "🍡", "🚀"];
+    const emojis: Array<string> = ["🐠", "🐟", "🐳", "🦄", "👊", "👾", "👽", "🎃", "🥳", "🤡", "🧠", "🍉", "🍎", "🍐", "🍊", "🍋", "🍌", "🍡", "🚀"];
     return (
         <Link href={`app/${cid}`} >
             <Card style={{
