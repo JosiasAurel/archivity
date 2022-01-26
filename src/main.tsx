@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/index.css";
 import HomePage from "./Home";
+import App from "./App";
 import { NextUIProvider } from "@nextui-org/react";
 import { ThirdwebProvider } from "@3rdweb/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -23,6 +24,7 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route index element={<HomePage />} />
+            <Route path="/app" element={<App />} />
           </Routes>
         </BrowserRouter>
       </React.StrictMode>
