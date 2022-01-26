@@ -22,7 +22,8 @@ const HomePage: React.FC = (): JSX.Element => {
                     <Link href="/app">
                         <Button>Go To Dashboard</Button>
                     </Link>
-                    : <ConnectWallet />}
+                    : <ConnectWallet />
+                }
             </div>
         </div>
     );
