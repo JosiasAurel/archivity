@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "./styles/index.css";
-import App from './App';
+import HomePage from './Home';
 import { NextUIProvider } from "@nextui-org/react";
 import { ThirdwebProvider } from "@3rdweb/react";
 
@@ -18,7 +18,7 @@ ReactDOM.render(
       supportedChainIds={supportedChains}
     >
       <React.StrictMode>
-        <App />
+        <HomePage />
       </React.StrictMode>
     </ThirdwebProvider>
   </NextUIProvider >,
