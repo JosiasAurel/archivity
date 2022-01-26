@@ -1,4 +1,3 @@
-
 import React from "react";
 // import home page styles
 import "./styles/home.css";
@@ -9,21 +8,20 @@ import { ConnectWallet } from "@3rdweb/react";
 import { useWeb3 } from "@3rdweb/hooks";
 
 const HomePage: React.FC = (): JSX.Element => {
+  const { chainId, provider, address } = useWeb3();
 
-    const { chainId, provider, address } = useWeb3();
-
-    return (
-        <div className="homePage">
-            <Header />
-            <div className="hero-container">
-                <img src={Logo} alt="ARCH LOGO" />
-                <Text h1 size={60} weight="bold">
-                    Your Record of Activities Stored On-Chain 🔥
-                </Text>
-                {address ? <Button>Go To Dashboard</Button> : <ConnectWallet />}
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="homePage">
+      <Header />
+      <div className="hero-container">
+        <img src={Logo} alt="ARCH LOGO" />
+        <Text h1 size={60} weight="bold">
+          Your Record of Activities Stored On-Chain 🔥
+        </Text>
+        {address ? <Button>Go To Dashboard</Button> : <ConnectWallet />}
+      </div>
+    </div>
+  );
+};
 
 export default HomePage;
