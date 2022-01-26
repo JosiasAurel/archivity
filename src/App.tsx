@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./styles/App.css";
+import "./styles/global.css";
 import Header from "./components/Header";
 import Project from "./components/Project";
 import { useWeb3 } from "@3rdweb/hooks";
@@ -60,7 +61,7 @@ function App(): JSX.Element {
           </Text>
         </Modal.Header>
         <Modal.Body>
-          <form>
+          <form className="flex-col">
             <Input clearable placeholder="Project Name" type="text" />
           </form>
         </Modal.Body>
