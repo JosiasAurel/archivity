@@ -1,13 +1,28 @@
 
 
 
-const ipfs = (window as any).IpfsCore;
+const IPFS = (window as any).Ipfs;
 
-async function publishContent(content: string) {
+const ipfs = await IPFS.create();
+
+async function publishContent(content: string): Promise<string> {
     const { cid } = await ipfs.add(content);
     return cid;
 }
 
+async function getContent(cid: string): Promise<string> {
+
+    const stream = ipfs.cat(cid);
+    let data: string = "";
+
+    for await (const chunk of stream) {
+        data += chunk.toString();
+    }
+
+    return data;
+}
+
 export {
-    publishContent
+    publishContent,
+    getContent
 };
