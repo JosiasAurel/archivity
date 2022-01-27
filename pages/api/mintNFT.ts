@@ -2,13 +2,13 @@ import { ThirdwebSDK } from "@3rdweb/sdk";
 import { useEthers } from "@usedapp/core";
 import { ethers } from "ethers";
 
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { NextApiRequest, NextApiResponse } from "next";
 import { config } from "dotenv";
 
 // load .env
 config();
 
-export default function mintNFT(req: VercelRequest, res: VercelResponse) {
+export default function mintNFT(req: NextApiRequest, res: NextApiResponse) {
 
     const mumbaiRPCURL: string = "https://rpc-mumbai.maticvigil.com";
     const {} = useEthers();
