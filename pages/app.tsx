@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import "./styles/App.css";
-import "./styles/global.css";
-import Header from "./components/Header";
-import Project from "./components/Project";
+import React, { useState, useEffect } from "react";
+import styles from "../styles/app.module.css";
+import Header from "../components/Header";
+import Project from "../components/Project";
 import { useWeb3 } from "@3rdweb/hooks";
 import { Button, Modal, Text, Input, Textarea, Spacer } from "@nextui-org/react";
-import { publishContent } from "./utils/ipfs";
+import { publishContent } from "../utils/ipfs";
+
+interface Project {
+  name: string;
+  cid: string;
+  description: string;
+}
 
 const sampleProjects: Array<Project> = [
   {
@@ -26,6 +31,7 @@ const sampleProjects: Array<Project> = [
 ];
 
 function App(): JSX.Element {
+  const [ipfs, setIpfs] = useState<any>();
   const { provider, chainId, address } = useWeb3();
 
   // visibility of modal to create a new project log
@@ -35,25 +41,30 @@ function App(): JSX.Element {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
+  useEffect(() => {
+    setIpfs((window as any).Ipfs);
+  });
   async function addProject() {
-    const cid = await publishContent(JSON.stringify({ name, description })) as unknown as string;
+    const cid = await publishContent(ipfs, JSON.stringify({ name, description })) as unknown as string;
     console.log(cid);
     sampleProjects.push({ name, description, cid });
   }
 
   return (
-    <div className="App">
+    <div>
       <Header />
-      <div>
-        {sampleProjects.map((project: Project) => (
-          <Project
-            key={project.cid}
-            name={project.name}
-            cid={project.cid}
-            description={project.description}
-          />
-        )
-        )}
+      <div className="center">
+        <div>
+          {sampleProjects.map((project: Project) => (
+            <Project
+              key={project.cid}
+              name={project.name}
+              cid={project.cid}
+              description={project.description}
+            />
+          )
+          )}
+        </div>
       </div>
       <Modal closeButton blur open={newProjectModal} onClose={() => setNewProjectModal(false)}>
         <Modal.Header>
