@@ -1,9 +1,9 @@
 import { ThirdwebSDK } from "@3rdweb/sdk";
-import { useWeb3 } from "@3rdweb/hooks";
 import { useEthers } from "@usedapp/core";
+import { ethers } from "ethers";
+import { JsonRpcProvider } from "@ethersproject/providers";
 
-async function fetchNFTs() {
-    const { library } = useEthers();
+async function fetchNFTs(library: JsonRpcProvider | undefined) {
 
     // Argument of type 'JsonRpcSigner | undefined' is not assignable to parameter of type 'ValidProviderInput'
     // use any to remove squiggles
@@ -16,6 +16,10 @@ async function fetchNFTs() {
     const ownerNFTs = await nft.getAllWithOwner();
 
     return ownerNFTs;
+}
+
+async function mintNFT(account: string|null|undefined, name: string, description: string, content: string) {
+    const response = await fetch("/api/");
 }
 
 export {

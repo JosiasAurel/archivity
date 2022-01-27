@@ -70,7 +70,7 @@ function App(): JSX.Element {
             <Spacer />
             <Textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Project Description" />
             <Spacer />
-            <Button>
+            <Button type="submit">
               Create Project Log
             </Button>
           </form>
