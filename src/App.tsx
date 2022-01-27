@@ -4,7 +4,7 @@ import "./styles/global.css";
 import Header from "./components/Header";
 import Project from "./components/Project";
 import { useWeb3 } from "@3rdweb/hooks";
-import { Button, Modal, Text, Input } from "@nextui-org/react";
+import { Button, Modal, Text, Input, Textarea, Spacer } from "@nextui-org/react";
 import { publishContent } from "./utils/ipfs";
 
 const sampleProjects: Array<Project> = [
@@ -37,6 +37,7 @@ function App(): JSX.Element {
 
   async function addProject() {
     const cid = await publishContent(JSON.stringify({ name, description })) as unknown as string;
+    console.log(cid);
     sampleProjects.push({ name, description, cid });
   }
 
@@ -61,8 +62,17 @@ function App(): JSX.Element {
           </Text>
         </Modal.Header>
         <Modal.Body>
-          <form className="flex-col">
-            <Input clearable placeholder="Project Name" type="text" />
+          <form onSubmit={e => {
+            e.preventDefault();
+            addProject();
+          }} className="flex-col">
+            <Input value={name} onChange={e => setName(e.target.value)} clearable placeholder="Project Name" type="text" />
+            <Spacer />
+            <Textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Project Description" />
+            <Spacer />
+            <Button>
+              Create Project Log
+            </Button>
           </form>
         </Modal.Body>
       </Modal>
