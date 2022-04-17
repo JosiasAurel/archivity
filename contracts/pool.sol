@@ -93,6 +93,18 @@ contract Pool {
 
         // send funds to the project
         project.recipient.transfer(total_funding);
+        // empty contributed funds for the next item in the pool
+        delete contributed_funds;
+
+        // remove the project from the pool
+    }
+
+    function fundAndEmptyPool() public {
+        for (uint256 i = 0; i < projects.length; i++) {
+            computeAndFundProject(i);
+            // assume funding doesn't fail
+            delete projects[i];
+        }
     }
 
     // errors
