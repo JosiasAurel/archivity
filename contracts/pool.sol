@@ -3,9 +3,16 @@
 pragma solidity ^0.8.6;
 
 contract Pool {
-    constructor() {}
-
     Project[] public projects;
+    uint256 public poolStartTime;
+    // for testing purposes it will take 2 minutes for a pool to end
+    uint256 public poolDuration = 120;
+    uint256 public poolEndTime;
+
+    constructor() {
+        poolStartTime = block.timestamp;
+        poolEndTime = block.timestamp + poolDuration;
+    }
 
     struct Project {
         bytes32[] name;
@@ -20,12 +27,13 @@ contract Pool {
         uint64 whichProject;
     }
 
+    // methods
     function submitProject(
         bytes32[] memory name,
         bytes32[] memory project_link,
         bytes32[] memory description,
         uint64 unique_project,
-        address recipient
+        address payable recipient
     ) public {
         if (projects.length <= 10) {
             projects.push(
@@ -42,5 +50,6 @@ contract Pool {
         }
     }
 
+    // errors
     error PoolIsFull();
 }
