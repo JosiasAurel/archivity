@@ -9,6 +9,7 @@ contract Pool {
     // for testing purposes it will take 2 minutes for a pool to end
     uint256 public poolDuration = 120;
     uint256 public poolEndTime;
+    uint256[] public contributed_funds;
 
     // This mapping will be used to determine to
     // which project a certain contribution belongs to
@@ -31,6 +32,7 @@ contract Pool {
     struct Contribution {
         address contributor;
         uint256 whichProject;
+        uint256 amount;
     }
 
     // methods
@@ -56,17 +58,49 @@ contract Pool {
         }
     }
 
-    function makeContribution(uint256 project_id) public {
+    function makeContribution(uint256 project_id, uint256 amount) public {
         Contribution memory contribution = Contribution({
             contributor: msg.sender,
-            whichProject: project_id
+            whichProject: project_id,
+            amount: amount
         });
         // add to our contributions list
         contributions.push(contribution);
     }
 
-    function computeAndFundProject(Project memory project) public payable {}
+    function computeAndFundProject(uint256 project_id) public {
+        Project memory project = projects_[project_id];
+        uint256 contribution_count = 0;
+        uint256 matched_funds;
+
+        // collect all contribution to a particular project
+        for (uint256 i = 0; i < contributions.length; i++) {
+            if (contributions[i].whichProject == project_id) {
+                contributed_funds.push(contributions[i].amount);
+                contribution_count++;
+            }
+        }
+
+        // compute funding for the project
+        for (uint256 i = 0; i < contributed_funds.length; i++) {}
+    }
 
     // errors
     error PoolIsFull();
+}
+
+// sqrt from Uniswap v2-core, implementation of Babylonian method
+library Math {
+    function sqrt(uint256 y) internal pure returns (uint256 z) {
+        if (y > 3) {
+            z = y;
+            uint256 x = y / 2 + 1;
+            while (x < z) {
+                z = x;
+                x = (y / x + x) / 2;
+            }
+        } else if (y != 0) {
+            z = 1;
+        }
+    }
 }
