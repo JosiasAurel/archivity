@@ -3,6 +3,8 @@
 pragma solidity ^0.8.6;
 
 contract Pool {
+    constructor() {}
+
     Project[] public projects;
 
     struct Project {
@@ -10,7 +12,7 @@ contract Pool {
         bytes32[] project_link;
         bytes32[] description;
         uint64 unique_project;
-        address recipient;
+        address payable recipient;
     }
 
     struct Contribution {
