@@ -71,7 +71,8 @@ contract Pool {
     function computeAndFundProject(uint256 project_id) public {
         Project memory project = projects_[project_id];
         uint256 contribution_count = 0;
-        uint256 matched_funds;
+        uint256 matched_funds = 0;
+        uint256 total_funding = 0;
 
         // collect all contribution to a particular project
         for (uint256 i = 0; i < contributions.length; i++) {
@@ -82,7 +83,16 @@ contract Pool {
         }
 
         // compute funding for the project
-        for (uint256 i = 0; i < contributed_funds.length; i++) {}
+        for (uint256 i = 0; i < contributed_funds.length; i++) {
+            matched_funds += Math.sqrt(contributed_funds[i]);
+            total_funding += contributed_funds[i];
+        }
+        // sqaure the sum of fund square root
+        matched_funds = matched_funds**2;
+        total_funding += matched_funds;
+
+        // send funds to the project
+        project.recipient.transfer(total_funding);
     }
 
     // errors
